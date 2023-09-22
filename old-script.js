@@ -23,7 +23,11 @@ fetch('https://qiming86.github.io/questions.json')
 		
 
         for (let i = 0; i < buttons.length; i++) {
-            buttons[i].textContent = availableNames.pop();
+            if (i === 0) {
+                buttons[i].textContent = randomImageName;
+            } else {
+                buttons[i].textContent = availableNames.pop();
+            }
             buttons[i].addEventListener('click', function() {
                 if (this.textContent === randomImageName) {
                     resultElement.textContent = 'Correct!';
