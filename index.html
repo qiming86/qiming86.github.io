@@ -5,11 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guessing Game</title>
     <script>
-        async function loadQuestion() {
+        let questions;
+
+        async function loadQuestions() {
             const response = await fetch('questions.json');
-            const data = await response.json();
-            document.getElementById('question').textContent = data.question;
-            document.getElementById('image').src = data.imageURL;
+            questions = await response.json();
+        }
+
+        function loadRandomQuestion() {
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            const randomQuestion = questions[randomIndex];
+            document.getElementById('question').textContent = randomQuestion.question;
+            document.getElementById('image').src = randomQuestion.imageURL;
         }
 
         function checkGuess(isCorrect) {
@@ -21,7 +28,7 @@
         }
     </script>
 </head>
-<body onload="loadQuestion()">
+<body onload="loadQuestions(); loadRandomQuestion()">
     <h1>Guessing Game</h1>
     <div id="question"></div>
     <img id="image" src="" alt="Question Image">
@@ -30,4 +37,3 @@
     <div id="result"></div>
 </body>
 </html>
-
