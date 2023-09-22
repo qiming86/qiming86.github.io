@@ -1,7 +1,33 @@
 <!DOCTYPE html>
-<html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <script>
+        async function loadQuestion() {
+            const response = await fetch('questions.json');
+            const data = await response.json();
+            document.getElementById('question').textContent = data.question;
+            document.getElementById('image').src = data.imageURL;
+        }
+
+        function checkGuess(isCorrect) {
+            if (isCorrect) {
+                document.getElementById('result').textContent = 'Correct!';
+            } else {
+                document.getElementById('result').textContent = 'Incorrect!';
+            }
+        }
+    </script>
+</head>
+<body onload="loadQuestion()">
+    <h1>Guessing Game</h1>
+    <div id="question"></div>
+    <img id="image" src="" alt="Question Image">
+    <button onclick="checkGuess(true)">Yes</button>
+    <button onclick="checkGuess(false)">No</button>
+    <div id="result"></div>
 </body>
 </html>
+
