@@ -18,14 +18,14 @@ fetch('https://qiming86.github.io/questions.json')
 
         imageElement.src = randomImageURL;
 
-        const availableNames = data.map(item => item.imageName).filter(name => name !== randomImageName);
+		availableNames = data.map(item => item.imageName).filter(name => name !== randomImageName);
         availableNames = availableNames.sort(() => Math.random() - 0.5).slice(0, 3);
 		availableNames.push(randomImageName).sort(() => Math.random() - 0.5);
 		avilElement.textContent = availableNames;
 		
 
         for (let i = 0; i < buttons.length; i++) {
-            buttons[i].textContent = availableNames.pop();
+            buttons[i].textContent = 'hello';
             buttons[i].addEventListener('click', function() {
                 if (this.textContent === randomImageName) {
                     resultElement.textContent = 'Correct!';
