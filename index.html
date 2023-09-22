@@ -16,7 +16,7 @@
             const randomIndex = Math.floor(Math.random() * questions.length);
             const randomQuestion = questions[randomIndex];
             document.getElementById('question').textContent = randomQuestion.question;
-            document.getElementById('image').src = randomQuestion.imageURL;
+            document.getElementById('image').src = "https://qiming86.github.io/" + randomQuestion.imageURL;
         }
 
         function checkGuess(isCorrect) {
