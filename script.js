@@ -7,6 +7,7 @@ fetch('https://qiming86.github.io/questions.json')
 
         const imageElement = document.getElementById('image');
         const resultElement = document.getElementById('result');
+		const avilElement = document.getElementById('availNames');
 
         const buttons = [
             document.getElementById('button1'),
@@ -20,6 +21,7 @@ fetch('https://qiming86.github.io/questions.json')
         const availableNames = data.map(item => item.imageName).filter(name => name !== randomImageName);
         availableNames = availableNames.sort(() => Math.random() - 0.5).slice(0, 3);
 		availableNames.push(randomImageName).sort(() => Math.random() - 0.5);
+		avilElement.textContent = availableNames;
 		
 
         for (let i = 0; i < buttons.length; i++) {
