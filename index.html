@@ -3,37 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guessing Game</title>
-    <script>
-        let questions;
-
-        async function loadQuestions() {
-            const response = await fetch('https://qiming86.github.io/questions.json');
-            questions = await response.json();
-        }
-
-        function loadRandomQuestion() {
-            const randomIndex = Math.floor(Math.random() * questions.length);
-            const randomQuestion = questions[randomIndex];
-            document.getElementById('question').textContent = randomQuestion.question;
-            document.getElementById('image').src = 'https://qiming86.github.io/' + randomQuestion.imageURL;
-        }
-
-        function checkGuess(isCorrect) {
-            if (isCorrect) {
-                document.getElementById('result').textContent = 'Correct!';
-            } else {
-                document.getElementById('result').textContent = 'Incorrect!';
-            }
-        }
-    </script>
+    <title>Fetch JSON Data</title>
+    <script src="https://qiming86.github.io/script.js" defer></script>
+    <link rel="stylesheet" href="https://qiming86.github.io/styles.css">
 </head>
-<body onload="loadQuestions(); loadRandomQuestion()">
-    <h1>Guessing Game</h1>
-    <div id="question"></div>
-    <img id="image" src="" alt="Question Image">
-    <button onclick="checkGuess(true)">Yes</button>
-    <button onclick="checkGuess(false)">No</button>
-    <div id="result"></div>
+<body>
+    <div class="container">
+        <img id="image" alt="Question Image">
+        <div class="button-container">
+            <button id="button1"></button>
+            <button id="button2"></button>
+            <button id="button3"></button>
+            <button id="button4"></button>
+        </div>
+        <div id="result"></div>
+    </div>
 </body>
 </html>

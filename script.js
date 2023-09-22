@@ -1,43 +1,43 @@
-let questions;
+fetch('https://qiming86.github.io/questions.json')
+    .then(response => response.json())
+    .then(data => {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        const randomImageURL = 'https://qiming86.github.io/' + data[randomIndex].imageURL;
+        const randomImageName = data[randomIndex].imageName;
 
-async function loadQuestions() {
-    try {
-        const response = await fetch('https://qiming86.github.io/questions.json');
-        questions = await response.json();
-    } catch (error) {
-        console.error('Error loading questions:', error);
-        document.getElementById('error').textContent = 'Error loading questions. Please try again later.'; // Display error message
-    }
-}
+        const imageElement = document.getElementById('image');
+        const resultElement = document.getElementById('result');
 
-function loadRandomQuestion() {
-    if (Array.isArray(questions) && questions.length > 0) {
-        const randomIndex = Math.floor(Math.random() * questions.length);
-        const randomQuestion = questions[randomIndex];
-        document.getElementById('question').textContent = randomQuestion.question;
-        document.getElementById('image').src = 'https://qiming86.github.io/' + randomQuestion.imageURL;
-    } else {
-        console.error('No questions loaded or invalid data format.');
-        document.getElementById('error').textContent = 'No questions available. Please try again later.'; // Display error message
-    }
-}
+        const buttons = [
+            document.getElementById('button1'),
+            document.getElementById('button2'),
+            document.getElementById('button3'),
+            document.getElementById('button4')
+        ];
 
-function checkGuess(isCorrect) {
-    if (Array.isArray(questions) && questions.length > 0) {
-        const randomIndex = Math.floor(Math.random() * questions.length);
-        const randomQuestion = questions[randomIndex];
+        imageElement.src = randomImageURL;
 
-        if (isCorrect === (randomQuestion.question.toLowerCase().includes('yes'))) {
-            document.getElementById('result').textContent = 'Correct!';
-        } else {
-            document.getElementById('result').textContent = 'Incorrect!';
+        const availableNames = data.map(item => item.imageName).filter(name => name !== randomImageName);
+        availableNames.sort(() => Math.random() - 0.5);
+
+        for (let i = 0; i < buttons.length; i++) {
+            if (i === 0) {
+                buttons[i].textContent = randomImageName;
+            } else {
+                buttons[i].textContent = availableNames.pop();
+            }
+            buttons[i].addEventListener('click', function() {
+                if (this.textContent === randomImageName) {
+                    resultElement.textContent = 'Correct!';
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000); // Refresh after 1 second
+                } else {
+                    resultElement.textContent = 'Incorrect!';
+                }
+            });
         }
-
-        loadRandomQuestion();
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    loadQuestions();
-    loadRandomQuestion();
-});
+    })
+    .catch(error => {
+        console.error('Error fetching JSON:', error);
+    });
