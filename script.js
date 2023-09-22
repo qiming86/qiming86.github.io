@@ -18,7 +18,9 @@ fetch('https://qiming86.github.io/questions.json')
         imageElement.src = randomImageURL;
 
         const availableNames = data.map(item => item.imageName).filter(name => name !== randomImageName);
-        availableNames.sort(() => Math.random() - 0.5);
+        availableNames = availableNames.sort(() => Math.random() - 0.5).slice(0, 3);
+		availableNames.push(randomImageName).sort(() => Math.random() - 0.5);
+		
 
         for (let i = 0; i < buttons.length; i++) {
             if (i === 0) {
